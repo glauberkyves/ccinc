@@ -51,14 +51,14 @@
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.crossOrigin = 'anonymous';
-        link.href = basePath + 'assets/' + cssFile;
+        link.href = currentHref + 'assets/' + cssFile;
         document.head.appendChild(link);
 
         // Cria e anexa o script JS dinamicamente (tipo module)
         const script = document.createElement('script');
         script.type = 'module';
         script.crossOrigin = 'anonymous';
-        script.src = basePath + 'assets/' + jsFile;
+        script.src = currentHref + 'assets/' + jsFile;
         // opcional: adicionar atributo data para depuração sem expor conteúdo
         script.setAttribute('data-cortex-assets-base', basePath);
         document.head.appendChild(script);
