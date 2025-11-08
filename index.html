@@ -21,30 +21,46 @@
     <!-- Base relative path -->
     <base href="./">
 
-    
+    <!-- Dynamic asset loader + diagnostics -->
     <script>
       (function() {
-        
-        const basePath = window.location.pathname.includes('/cortexpush/')
-          ? '/cortexpush/'
-          : '/';
+        // domínio completo (ex: https://glauberkyves.github.io)
+        const currentOrigin = window.location.origin;
+        // URL completa da página (ex: https://glauberkyves.github.io/cortexpush/)
+        const currentHref = window.location.href;
+        // Pathname (ex: /cortexpush/ ou /)
+        const pathname = window.location.pathname || '/';
 
-        
+        // Detecta automaticamente se está no GitHub Pages (repositório em subpath)
+        // Ajuste '/cortexpush/' para outro subpath se necessário
+        const repoSubpath = '/cortexpush/';
+        const basePath = pathname.includes(repoSubpath) ? repoSubpath : '/';
+
+        // Exponha no console para diagnóstico
+        console.log('CortexPush diagnostics:');
+        console.log('  currentOrigin:', currentOrigin);
+        console.log('  currentHref:  ', currentHref);
+        console.log('  pathname:     ', pathname);
+        console.log('  resolved basePath for assets:', basePath);
+
+        // Nomes dos arquivos de assets (mantidos discretamente no código)
         const jsFile = 'index-DKqGIi67.js';
         const cssFile = 'index-3l3X29Wy.css';
 
-        
+        // Cria e anexa o CSS dinamicamente (sem mostrar caminhos no HTML estático)
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.crossOrigin = 'anonymous';
         link.href = basePath + 'assets/' + cssFile;
         document.head.appendChild(link);
 
-        
+        // Cria e anexa o script JS dinamicamente (tipo module)
         const script = document.createElement('script');
         script.type = 'module';
         script.crossOrigin = 'anonymous';
         script.src = basePath + 'assets/' + jsFile;
+        // opcional: adicionar atributo data para depuração sem expor conteúdo
+        script.setAttribute('data-cortex-assets-base', basePath);
         document.head.appendChild(script);
       })();
     </script>
